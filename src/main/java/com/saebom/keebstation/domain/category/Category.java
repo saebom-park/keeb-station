@@ -17,7 +17,7 @@ public class Category extends BaseTimeEntity {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "name", nullable = false, unique = true, length = 50)
+    @Column(name = "name", nullable = false, unique = true, columnDefinition = "varchar(50)")
     private CategoryName name;
 
     public Category(CategoryName name) {
