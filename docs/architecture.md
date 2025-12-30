@@ -51,11 +51,22 @@ com.saebom.keebstation
 - 실제 판매 단위는 ProductOption
 - 재고는 ProductOption : Stock = 1 : 1
 - 주문 상세(OrderLine)는 ProductOption을 참조
-- Admin 기능은 도메인이 아닌 접근 주체(Role) 기준으로 분리
+- Admin 기능은 별도 도메인이 아닌 접근 주체(Role) 기준으로 분리
+
+---
+
+## 주문 생성 트랜잭션 흐름
+
+- Controller → OrderService (@Transactional, 트랜잭션 시작)
+- ProductOption 조회
+- Stock 조회 및 quantity 감소
+- Order / OrderLine 생성
+- 총 금액 확정
+- 실패 시 전체 롤백 (재고 차감 포함)
 
 ---
 
 ## 비고
 
-- 본 문서는 v1 기준
-- 구조 변경 시 decisions.md에 반드시 기록
+- 본 문서는 현재 기준 구조를 설명한다
+- 구조/정책 변경 시 decisions.md에 반드시 기록한다

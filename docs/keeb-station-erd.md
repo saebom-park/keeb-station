@@ -1,6 +1,6 @@
-# [keeb-station] ERD & Table Specifications (v1)
+# [keeb-station] ERD & Table Specifications
 
-> keeb-station v1의 핵심은 **옵션 기반 판매 단위(ProductOption)** 와  
+> keeb-station의 핵심은 **옵션 기반 판매 단위(ProductOption)** 와  
 > **옵션 단위 재고(Stock 1:1)**, **주문 라인(OrderLine)이 옵션을 참조**하는 구조다.  
 > 본 문서는 이 구조를 기준으로 DB 테이블/컬럼/제약을 확정한다.
 
@@ -21,7 +21,7 @@
 - `category (1) ── (N) product`
 - `product (1) ── (N) product_option`
 - `product_option (1) ── (1) stock` (**Unique로 1:1 강제**)
-- `member (1) ── (N) orders` *(v1에서는 FK만 가정)*
+- `member (1) ── (N) orders` *(초기 단계에서는 FK만 가정)*
 - `orders (1) ── (N) order_line`
 - `order_line (N) ── (1) product_option`
 
@@ -106,13 +106,15 @@
 
 권장 제약:
 - `quantity >= 0` (DB CHECK 또는 서비스 레이어에서 강제)
+- Stock은 @Version 기반 낙관적 락으로 동시 주문 시 재고 정합성을 보장한다.
+- 충돌 시 OptimisticLockException 발생을 허용하고 서비스 레벨에서 처리한다.
 
 ---
 
 ### 2.5 `orders` (주문 헤더)
 
 > “누가, 언제, 얼마치 샀는지” 주문의 큰 정보를 담는다.  
-> v1에서는 `member_id`를 FK 컬럼으로만 두고, Member 엔티티 연관관계는 뒤로 미룰 수 있다.
+> 초기 단계에서는 `member_id`를 FK 컬럼으로만 두고, Member 엔티티 연관관계는 뒤로 미룰 수 있다.
 
 | 컬럼명 | 타입 | 제약조건 | 설명 |
 |---|---|---|---|
@@ -160,7 +162,7 @@
 
 ---
 
-## 4. 구현 가이드 (v1)
+## 4. 구현 가이드
 
 - 주문 생성 시:
   1) `Stock.quantity` 감소 (옵션 기준)
@@ -175,5 +177,7 @@
 
 ## 5. 변경 이력
 
-- v1: `orders` 테이블명 확정
-- v1: 금액 컬럼 타입 `BIGINT`로 통일
+- 2025-12-26: `orders` 테이블명 확정
+- 2025-12-26: 금액 컬럼 타입을 `BIGINT`로 통일
+- 2025-12-30: Stock에 `@Version` 기반 낙관적 락 적용
+- 2025-12-30: 동시 주문 충돌 시 `OptimisticLockException` 발생을 허용하고 서비스 레벨에서 처리하도록 설계

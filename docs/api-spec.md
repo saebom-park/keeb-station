@@ -19,8 +19,23 @@
 
 ## Order API
 
-### POST /api/orders
-- 설명: 주문 생성
+### POST /api/orders?memberId={memberId}
+
+Request:
+```json
+{
+  "items": [
+    { "productOptionId": 1, "quantity": 1 }
+  ]
+}
+```
+Response:
+```json
+{
+  "orderId": 1,
+  "totalPrice": 100000
+}
+```
 
 ### POST /api/orders/{orderId}/cancel
 - 설명: 주문 취소
