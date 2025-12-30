@@ -34,4 +34,15 @@ public class Stock extends BaseTimeEntity {
         this.quantity = quantity;
     }
 
+    public void decrease(int amount) {
+        if (amount <= 0) throw new IllegalArgumentException("amount must be positive");
+        if (this.quantity < amount) throw new IllegalStateException("재고 부족");
+        this.quantity -= amount;
+    }
+
+    public void increase(int amount) {
+        if (amount <= 0) throw new IllegalArgumentException("amount must be positive");
+        this.quantity += amount;
+    }
+
 }
