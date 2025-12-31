@@ -24,4 +24,22 @@ public class OrderController {
         CreateOrderResponse response = orderService.createOrder(memberId, request);
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/{orderId}/pay")
+    public ResponseEntity<Void> pay(@PathVariable("orderId") Long orderId) {
+        orderService.payOrder(orderId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{orderId}/ship")
+    public ResponseEntity<Void> ship(@PathVariable("orderId") Long orderId) {
+        orderService.shipOrder(orderId);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{orderId}/cancel")
+    public ResponseEntity<Void> cancel(@PathVariable("orderId") Long orderId) {
+        orderService.cancelOrder(orderId);
+        return ResponseEntity.ok().build();
+    }
 }
