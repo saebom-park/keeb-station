@@ -36,17 +36,31 @@ public class Orders extends BaseTimeEntity {
         this.status = OrderStatus.CREATED;
     }
 
+    public void applyTotalPrice(long totalPrice) {
+        if (totalPrice < 0) throw new IllegalArgumentException("totalPrice must be >= 0");
+        this.totalPrice = totalPrice;
+    }
+
+    // 상태 전이 검증 추가
     public void cancel() {
+        if (this.status != OrderStatus.CREATED) {
+            throw new IllegalStateException("CREATED 상태에서만 취소할 수 있습니다.");
+        }
         this.status = OrderStatus.CANCELED;
     }
 
     public void markPaid() {
+        if (this.status != OrderStatus.CREATED) {
+            throw new IllegalStateException("CREATED 상태에서만 결제 완료 처리할 수 있습니다.");
+        }
         this.status = OrderStatus.PAID;
     }
 
-    public void applyTotalPrice(long totalPrice) {
-        if (totalPrice < 0) throw new IllegalArgumentException("totalPrice must be >= 0");
-        this.totalPrice = totalPrice;
+    public void ship() {
+        if (this.status != OrderStatus.PAID) {
+            throw new IllegalStateException("PAID 상태에서만 배송 처리할 수 있습니다.");
+        }
+        this.status = OrderStatus.SHIPPED;
     }
 
 }
