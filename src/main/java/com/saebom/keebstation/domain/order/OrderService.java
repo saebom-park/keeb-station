@@ -7,5 +7,4 @@ public interface OrderService {
 
     CreateOrderResponse createOrder(Long memberId, CreateOrderRequest request);
     void cancelOrder(Long orderId);
-    void shipOrder(Long orderId);
 }

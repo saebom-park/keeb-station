@@ -56,7 +56,7 @@ public class Order extends BaseTimeEntity {
         this.status = OrderStatus.PAID;
     }
 
-    public void ship() {
+    public void startShipping() {
         if (this.status != OrderStatus.PAID) {
             throw new IllegalStateException("PAID 상태에서만 배송 처리할 수 있습니다.");
         }
