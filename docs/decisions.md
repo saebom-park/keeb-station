@@ -99,3 +99,14 @@ keeb-station 프로젝트에서 내려진 중요한 설계/기술 결정을 기�
   - 옵션은 실제 판매 단위이며, 재고 없는 옵션은 의미가 없음
   - ProductOption–Stock 1:1 그래프 정합성 보장
   - 조회 API 및 주문 처리 시 Null 그래프 방지
+
+---
+
+## 2026-01-05
+### Product 상세 조회에 EntityGraph 적용
+- 결정: Product 상세 조회(단건)는 EntityGraph를 사용하여 Product → ProductOption → Stock 그래프를 한 번에 로딩
+- 이유:
+  - ProductOption이 컬렉션이므로 기본 LAZY 로딩 시 N+1 문제 발생 가능
+  - fetch join 대비 선언적이며 단건 조회에 적합한 조회 전략
+  - 이후 목록/검색 조회와 상세 조회의 fetch 전략을 분리하기 용이
+  - 조회 전용 그래프 로딩으로 Write 도메인 규칙과 명확히 분리 가능
