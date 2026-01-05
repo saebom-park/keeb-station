@@ -1,4 +1,4 @@
-package com.saebom.keebstation.web;
+package com.saebom.keebstation.web.api;
 
 import com.saebom.keebstation.domain.shipping.ShippingService;
 import lombok.RequiredArgsConstructor;

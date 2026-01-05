@@ -1,7 +1,7 @@
-package com.saebom.keebstation.web;
+package com.saebom.keebstation.web.api;
 
 import com.saebom.keebstation.domain.payment.PaymentService;
-import com.saebom.keebstation.domain.payment.dto.PayOrderRequest;
+import com.saebom.keebstation.web.dto.api.payment.PayOrderRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

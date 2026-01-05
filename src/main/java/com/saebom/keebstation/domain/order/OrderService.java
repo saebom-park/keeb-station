@@ -1,7 +1,7 @@
 package com.saebom.keebstation.domain.order;
 
-import com.saebom.keebstation.domain.order.dto.CreateOrderRequest;
-import com.saebom.keebstation.domain.order.dto.CreateOrderResponse;
+import com.saebom.keebstation.web.dto.api.order.CreateOrderRequest;
+import com.saebom.keebstation.web.dto.api.order.CreateOrderResponse;
 
 public interface OrderService {
 

@@ -1,6 +1,5 @@
 package com.saebom.keebstation.domain.order;
 
-import com.saebom.keebstation.domain.order.dto.CreateOrderRequest;
 import com.saebom.keebstation.domain.stock.StockRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

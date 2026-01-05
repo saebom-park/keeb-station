@@ -1,4 +1,4 @@
-package com.saebom.keebstation.domain.order.dto;
+package com.saebom.keebstation.web.dto.api.order;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

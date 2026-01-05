@@ -1,8 +1,8 @@
-package com.saebom.keebstation.web;
+package com.saebom.keebstation.web.api;
 
 import com.saebom.keebstation.domain.order.OrderService;
-import com.saebom.keebstation.domain.order.dto.CreateOrderRequest;
-import com.saebom.keebstation.domain.order.dto.CreateOrderResponse;
+import com.saebom.keebstation.web.dto.api.order.CreateOrderRequest;
+import com.saebom.keebstation.web.dto.api.order.CreateOrderResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

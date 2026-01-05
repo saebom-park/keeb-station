@@ -1,4 +1,4 @@
-package com.saebom.keebstation.domain.payment.dto;
+package com.saebom.keebstation.web.dto.api.payment;
 
 import com.saebom.keebstation.domain.payment.PaymentMethod;
 import lombok.Getter;

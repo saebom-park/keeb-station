@@ -2,9 +2,9 @@ package com.saebom.keebstation.domain.order;
 
 import com.saebom.keebstation.domain.option.ProductOption;
 import com.saebom.keebstation.domain.option.ProductOptionRepository;
-import com.saebom.keebstation.domain.order.dto.CreateOrderItemRequest;
-import com.saebom.keebstation.domain.order.dto.CreateOrderRequest;
-import com.saebom.keebstation.domain.order.dto.CreateOrderResponse;
+import com.saebom.keebstation.web.dto.api.order.CreateOrderItemRequest;
+import com.saebom.keebstation.web.dto.api.order.CreateOrderRequest;
+import com.saebom.keebstation.web.dto.api.order.CreateOrderResponse;
 import com.saebom.keebstation.domain.stock.Stock;
 import com.saebom.keebstation.domain.stock.StockRepository;
 import jakarta.persistence.EntityNotFoundException;
