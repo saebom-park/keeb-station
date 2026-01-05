@@ -30,12 +30,16 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(IllegalStateException.class)
-    public ResponseEntity<ErrorResponse> conflict(IllegalStateException e, HttpServletRequest req) {
-        return ResponseEntity.status(409)
-                .body(ErrorResponse.of("CONFLICT", e.getMessage(), 409, req.getRequestURI()));
+    public ResponseEntity<ErrorResponse> badRequestState(IllegalStateException e, HttpServletRequest req) {
+        return ResponseEntity.status(400)
+                .body(ErrorResponse.of("BAD_REQUEST", e.getMessage(), 400, req.getRequestURI()));
     }
 
-    @ExceptionHandler(ObjectOptimisticLockingFailureException.class)
+    @ExceptionHandler({
+            ObjectOptimisticLockingFailureException.class,
+            OptimisticLockingFailureException.class,
+            OptimisticLockException.class
+    })
     public ResponseEntity<ErrorResponse> optimisticLock(ObjectOptimisticLockingFailureException e,
                                                         HttpServletRequest req) {
         log.error("[OPTIMISTIC_LOCK] path={}", req.getRequestURI(), e);
@@ -45,6 +49,20 @@ public class GlobalExceptionHandler {
                         "OPTIMISTIC_LOCK_CONFLICT",
                         "동시 요청으로 인해 처리가 실패했습니다. 다시 시도해주세요.",
                         409,
+                        req.getRequestURI()
+                ));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> internal(Exception e, HttpServletRequest req) {
+
+        log.error("[INTERNAL_ERROR] path={}", req.getRequestURL(), e);
+
+        return ResponseEntity.status(500)
+                .body(ErrorResponse.of(
+                        "INTERNAL_ERROR",
+                        "서버 오류가 발생했습니다.",
+                        500,
                         req.getRequestURI()
                 ));
     }
