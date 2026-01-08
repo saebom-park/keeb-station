@@ -67,4 +67,26 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.status").value(404))
                 .andExpect(jsonPath("$.path").value("/api/products/" + productId));
     }
+
+    @Test
+    @DisplayName("상품 목록 조회: 기본 페이징으로 상품 목록을 반환한다")
+    void getProducts_returnsProductList() throws Exception {
+        // when & then
+        mockMvc.perform(get("/api/products")
+                    .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+
+                .andExpect(jsonPath("$.content").isArray())
+                .andExpect(jsonPath("$.content.length()", greaterThan(0)))
+
+                .andExpect(jsonPath("$.content[0].productId").isNumber())
+                .andExpect(jsonPath("$.content[0].categoryId").isNumber())
+                .andExpect(jsonPath("$.content[0].name").isNotEmpty())
+                .andExpect(jsonPath("$.content[0].basePrice").isNumber())
+                .andExpect(jsonPath("$.content[0].status").isNotEmpty())
+
+                .andExpect(jsonPath("$.size").value(20))
+                .andExpect(jsonPath("$.number").value(0));
+    }
 }
