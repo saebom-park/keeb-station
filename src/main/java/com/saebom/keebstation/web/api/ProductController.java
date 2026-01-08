@@ -22,9 +22,14 @@ public class ProductController {
     }
 
     @GetMapping
-    public Page<ProductSummaryResponse> getProductList(
+    public Page<ProductSummaryResponse> getProducts(
+            @RequestParam(required = false) Long categoryId,
             @PageableDefault(size = 20) Pageable pageable
     ) {
+
+        if (categoryId != null) {
+            return productQueryService.getProductListByCategory(categoryId, pageable);
+        }
         return productQueryService.getProductList(pageable);
     }
 }

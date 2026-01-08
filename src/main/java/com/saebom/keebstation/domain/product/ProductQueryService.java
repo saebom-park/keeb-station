@@ -9,4 +9,6 @@ public interface ProductQueryService {
     ProductDetailResponse getProductDetail(Long productId);
 
     Page<ProductSummaryResponse> getProductList(Pageable pageable);
+
+    Page<ProductSummaryResponse> getProductListByCategory(Long categoryId, Pageable pageable);
 }

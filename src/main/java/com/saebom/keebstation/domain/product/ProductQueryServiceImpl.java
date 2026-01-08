@@ -56,6 +56,12 @@ public class ProductQueryServiceImpl implements ProductQueryService {
                 .map(this::toSummaryResponse);
     }
 
+    @Override
+    public Page<ProductSummaryResponse> getProductListByCategory(Long categoryId, Pageable pageable) {
+        return productRepository.findByCategoryId(categoryId, pageable)
+                .map(this::toSummaryResponse);
+    }
+
     private ProductSummaryResponse toSummaryResponse(Product product) {
         return new ProductSummaryResponse(
                 product.getId(),

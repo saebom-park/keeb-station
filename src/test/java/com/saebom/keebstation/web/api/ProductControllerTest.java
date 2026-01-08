@@ -89,4 +89,15 @@ class ProductControllerTest {
                 .andExpect(jsonPath("$.size").value(20))
                 .andExpect(jsonPath("$.number").value(0));
     }
+
+    @Test
+    @DisplayName("상품 목록 조회: categoryId 필터로 조회한다")
+    void getProducts_byCategory() throws Exception {
+        // when & then
+        mockMvc.perform(get("/api/products")
+                        .param("categoryId", "1")
+                        .accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.content").isArray());
+    }
 }
